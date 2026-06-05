@@ -166,20 +166,19 @@
             ctx.clearRect(0, 0, canvas.width, canvas.height);
             ctx.drawImage(imagenFondo, 0, 0, canvas.width, canvas.height);
             
-            // 1. AQUÍ CAMBIAS EL TAMAÑO (Ej: 80px) Y EL TIPO DE LETRA
-            ctx.font = '80px "Chewy"'; 
+            // 1. TIPO DE LETRA EXACTO: Lilita One
+            // (Si el tamaño se ve muy grande o pequeño, ajusta el "80px")
+            ctx.font = '80px "Lilita One"'; 
             ctx.textAlign = 'center';
             ctx.textBaseline = 'middle';
             
             if (texto.trim() === "") {
-                ctx.fillStyle = '#b0c4de'; // Color gris claro para "TU NOMBRE"
-                // Ajusta el '300' si necesitas subir o bajar el texto
-                ctx.fillText("TU NOMBRE", canvas.width / 2, 140); 
+                ctx.fillStyle = '#b0c4de'; 
+                ctx.fillText("TU NOMBRE", canvas.width / 2, 300); 
             } else {
-                // 2. AQUÍ CAMBIAS EL COLOR AL AZUL OSCURO DE "JUEGO"
-                ctx.fillStyle = '#21409a'; 
-                // Ajusta el '300' si necesitas subir o bajar el texto
-                ctx.fillText(texto.toUpperCase(), canvas.width / 2, 140); 
+                // 2. CÓDIGO DE COLOR EXACTO
+                ctx.fillStyle = '#173D97'; 
+                ctx.fillText(texto.toUpperCase(), canvas.width / 2, 300); 
             }
         }
         // FIN DEL CÓDIGO NUEVO
