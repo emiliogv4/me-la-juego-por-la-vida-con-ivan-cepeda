@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Generador de Campaña</title>
-    <!-- Importamos una fuente similar a la de la captura -->
+    <!-- Importamos la fuente exacta del diseño -->
     <link href="https://fonts.googleapis.com/css2?family=Lilita+One&display=swap" rel="stylesheet">
     <style>
         * {
@@ -20,12 +20,12 @@
             min-height: 100vh;
         }
         header, footer {
-            background-color: #21409a; 
+            background-color: #0F2D6B; /* Ajustado al azul oficial */
             color: white;
             text-align: center;
             padding: 10px 20px;
-            font-family: 'Titan One', cursive;
-            font-size: 14px;
+            font-family: 'Lilita One', cursive;
+            font-size: 16px;
             letter-spacing: 1px;
         }
         main {
@@ -47,13 +47,10 @@
             padding: 15px;
             border: 1px solid #b0c4de;
             border-radius: 8px;
-            font-size: 18px;
+            font-size: 20px;
             text-align: center;
-           input {
-    /* ... (deja el resto de estilos igual) ... */
-    font-family: 'Lilita One', cursive;
-}
-            color: #666;
+            font-family: 'Lilita One', cursive; /* Fuente aplicada a la caja de texto */
+            color: #0F2D6B;
             margin-bottom: 20px;
             outline: none;
             text-transform: uppercase;
@@ -84,9 +81,8 @@
             padding: 15px;
             border-radius: 8px;
             border: none;
-            font-size: 16px;
-            font-weight: bold;
-            font-family: 'Titan One', cursive;
+            font-size: 18px;
+            font-family: 'Lilita One', cursive;
             color: white;
             display: flex;
             justify-content: center;
@@ -99,12 +95,12 @@
             cursor: not-allowed;
         }
         button:not(:disabled) {
-            background-color: #21409a;
+            background-color: #0F2D6B; /* Azul oficial en el botón */
             cursor: pointer;
-            box-shadow: 0 4px 10px rgba(33, 64, 154, 0.4);
+            box-shadow: 0 4px 10px rgba(23, 61, 151, 0.4);
         }
         button:not(:disabled):hover {
-            background-color: #162d73;
+            background-color: #0f2a6b;
         }
         .hint {
             font-size: 11px;
@@ -140,9 +136,9 @@
     </main>
 
     <footer>
-        <strong>Unidos por el Magdalena y las Regiones</strong>
-        <p>By ❤️ Cepeda + Caicedo Unidos por Colombia</p>
-        <p>© 2026 - Jeffer Gutiérrez</p>
+        <strong>Firme por el Magdalena y la Región</strong>
+        <p>By ❤️ Equipo de Estrategia</p>
+        <p>© 2026 - Desarrollo Web</p>
     </footer>
 
     <script>
@@ -155,17 +151,22 @@
         const imagenFondo = new Image();
         imagenFondo.src = 'plantilla.png'; 
 
-        imagenFondo.onload = function() {
-            dibujarEscena("");
-        };
+        // Retrasamos un poquito el dibujado inicial para asegurar que la fuente externa cargue
+        document.fonts.ready.then(function() {
+            imagenFondo.onload = function() {
+                dibujarEscena("");
+            };
+            // Por si la imagen carga antes que la fuente
+            if(imagenFondo.complete) {
+                dibujarEscena("");
+            }
+        });
 
-        // AQUÍ FUE DONDE SE REEMPLAZÓ EL CÓDIGO NUEVO
         function dibujarEscena(texto) {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
             ctx.drawImage(imagenFondo, 0, 0, canvas.width, canvas.height);
             
-            // 1. TIPO DE LETRA EXACTO: Lilita One
-            // (Si el tamaño se ve muy grande o pequeño, ajusta el "80px")
+            // FUENTE LILITA ONE Y TAMAÑO
             ctx.font = '80px "Lilita One"'; 
             ctx.textAlign = 'center';
             ctx.textBaseline = 'middle';
@@ -174,16 +175,14 @@
                 ctx.fillStyle = '#b0c4de'; 
                 ctx.fillText("TU NOMBRE", canvas.width / 2, 150); 
             } else {
-                // 2. CÓDIGO DE COLOR EXACTO
+                // COLOR EXACTO DEL DISEÑO
                 ctx.fillStyle = '#0F2D6B'; 
                 ctx.fillText(texto.toUpperCase(), canvas.width / 2, 150); 
             }
         }
-        // FIN DEL CÓDIGO NUEVO
 
         function actualizarCanvas() {
             const nombre = input.value;
-            
             dibujarEscena(nombre);
 
             if (nombre.trim().length > 0) {
