@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generador de Apoyo</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 50px 20px;
+            background-color: #f4f4f9;
+        }
+        .contenedor {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            text-align: center;
+            max-width: 400px;
+            width: 100%;
+        }
+        input {
+            width: 90%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        button {
+            background-color: #e50000; /* Color de tu campaña */
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            width: 100%;
+        }
+        button:hover {
+            background-color: #cc0000;
+        }
+        /* El canvas está oculto, solo sirve para procesar la imagen internamente */
+        canvas {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="contenedor">
+        <h2>Súmate a la campaña</h2>
+        <p>Escribe tu nombre para generar tu imagen de apoyo.</p>
+        
+        <input type="text" id="nombreInput" placeholder="Ej: María Gómez" maxlength="25">
+        <button onclick="generarYDescargar()">Generar y Descargar</button>
+    </div>
+
+    <!-- Canvas oculto donde ocurre la magia -->
+    <canvas id="lienzo"></canvas>
+
+    <script>
+        function generarYDescargar() {
+            const nombre = document.getElementById('nombreInput').value;
+            
+            if (!nombre) {
+                alert("Por favor, escribe tu nombre.");
+                return;
+            }
+
+            const canvas = document.getElementById('lienzo');
+            const ctx = canvas.getContext('2d');
+            
+            // 1. Cargar la imagen de fondo
+            const imagenFondo = new Image();
+            imagenFondo.src = 'plantilla.png'; // <-- Asegúrate de tener esta imagen en la misma carpeta
+            
+            imagenFondo.onload = function() {
+                // 2. Ajustar el canvas al tamaño de tu plantilla
+                canvas.width = imagenFondo.width;
+                canvas.height = imagenFondo.height;
+
+                // 3. Dibujar el fondo
+                ctx.drawImage(imagenFondo, 0, 0);
+
+                // 4. Configurar y dibujar el texto
+                ctx.font = 'bold 80px Arial'; // Ajusta el tamaño y la fuente
+                ctx.fillStyle = '#FFFFFF';    // Color del texto (blanco)
+                ctx.textAlign = 'center';     // Centrar el texto
+
+                // Coordenadas donde se pintará el texto (X, Y)
+                // canvas.width / 2 lo centra horizontalmente. Ajusta el valor Y según el diseño de tu plantilla.
+                const posicionX = canvas.width / 2;
+                const posicionY = canvas.height - 200; 
+                
+                ctx.fillText(nombre.toUpperCase(), posicionX, posicionY);
+
+                // 5. Convertir a imagen y forzar la descarga
+                const enlaceDescarga = document.createElement('a');
+                enlaceDescarga.download = `apoyo-${nombre.replace(/\s+/g, '-').toLowerCase()}.png`;
+                enlaceDescarga.href = canvas.toDataURL('image/png');
+                enlaceDescarga.click();
+            };
+        }
+    </script>
+</body>
+</html>
