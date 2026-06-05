@@ -284,4 +284,144 @@
     <main>
         <div id="pantalla-inicio">
             <h1>Firme por el Magdalena</h1>
-            <p class="subtitulo">Personaliza tu imagen y demuestra que tú también te la juegas <span class="resaltado-rojo">por COLOMBIA.</span></
+            <p class="subtitulo">Personaliza tu imagen y demuestra que tú también te la juegas <span class="resaltado-rojo">por la región.</span></p>
+            
+            <img src="plantilla.png" alt="Muestra de la imagen" class="imagen-muestra">
+            
+            <button class="btn-azul" onclick="irAlGenerador()">¡Crear mi imagen!</button>
+
+            <h2>¿Cómo funciona?</h2>
+            
+            <div class="pasos-container">
+                <div class="paso-box"><div class="paso-numero">1</div>Escribe tu nombre en el campo de texto</div>
+                <div class="paso-box"><div class="paso-numero">2</div>Ve la vista previa de tu imagen personalizada</div>
+                <div class="paso-box"><div class="paso-numero">3</div>Descarga o comparte directamente a WhatsApp e Instagram</div>
+            </div>
+
+            <button class="btn-naranja" onclick="irAlGenerador()">Comenzar ahora &rarr;</button>
+        </div>
+
+        <div id="pantalla-generador">
+            <div class="encabezado-generador">
+                <button class="btn-volver" onclick="volverAlInicio()" title="Volver atrás">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="19" y1="12" x2="5" y2="12"></line>
+                        <polyline points="12 19 5 12 12 5"></polyline>
+                    </svg>
+                </button>
+                <h2>Crea tu imagen</h2>
+            </div>
+
+            <div class="etiqueta-container">
+                <div class="etiqueta">Escribe tu nombre:</div>
+            </div>
+            
+            <div class="input-group">
+                <input type="text" id="nombreInput" placeholder="TU NOMBRE AQUÍ..." maxlength="22" oninput="actualizarCanvas()">
+                
+                <button id="btnReset" class="btn-reset" onclick="resetearInput()" title="Borrar texto">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="1 4 1 10 7 10"></polyline>
+                        <path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"></path>
+                    </svg>
+                </button>
+            </div>
+            
+            <div class="canvas-container">
+                <canvas id="lienzo" width="800" height="800"></canvas>
+            </div>
+
+            <button class="btn-azul" id="btnDescargar" disabled onclick="descargarImagen()">
+                Descargar / Compartir
+            </button>
+        </div>
+    </main>
+
+    <footer>
+        <strong>CEPEDA + CAICEDO UNIDOS POR COLOMBIA</strong>
+        <p>By 🧡 Equipo de Estrategia</p>
+        <p>© 2026 - Jeffer Gutiérrez</p>
+    </footer>
+
+    <script>
+        const canvas = document.getElementById('lienzo');
+        const ctx = canvas.getContext('2d');
+        const input = document.getElementById('nombreInput');
+        const boton = document.getElementById('btnDescargar');
+        const btnHeaderCrear = document.getElementById('btnHeaderCrear');
+        const btnReset = document.getElementById('btnReset');
+        
+        function irAlGenerador() {
+            document.getElementById('pantalla-inicio').style.display = 'none';
+            document.getElementById('pantalla-generador').style.display = 'flex';
+            btnHeaderCrear.style.display = 'none';
+            window.scrollTo(0, 0);
+        }
+
+        function volverAlInicio() {
+            document.getElementById('pantalla-generador').style.display = 'none';
+            document.getElementById('pantalla-inicio').style.display = 'flex';
+            btnHeaderCrear.style.display = 'block';
+            window.scrollTo(0, 0);
+        }
+
+        const imagenFondo = new Image();
+        imagenFondo.src = 'plantilla.png'; 
+
+        document.fonts.ready.then(function() {
+            imagenFondo.onload = function() {
+                dibujarEscena("");
+            };
+            if(imagenFondo.complete) {
+                dibujarEscena("");
+            }
+        });
+
+        function dibujarEscena(texto) {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.drawImage(imagenFondo, 0, 0, canvas.width, canvas.height);
+            
+            ctx.font = '80px "Lilita One"'; 
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            
+            if (texto.trim() === "") {
+                ctx.fillStyle = '#b0c4de'; 
+                ctx.fillText("TU NOMBRE", canvas.width / 2, 150); 
+            } else {
+                ctx.fillStyle = '#0F2D6B'; /* NUEVO COLOR PARA EL NOMBRE */
+                ctx.fillText(texto.toUpperCase(), canvas.width / 2, 150); 
+            }
+        }
+
+        function actualizarCanvas() {
+            const nombre = input.value;
+            dibujarEscena(nombre);
+
+            if (nombre.trim().length > 0) {
+                boton.disabled = false;
+                btnReset.style.display = 'flex';
+            } else {
+                boton.disabled = true;
+                btnReset.style.display = 'none';
+            }
+        }
+
+        function resetearInput() {
+            input.value = "";          
+            actualizarCanvas();        
+            input.focus();             
+        }
+
+        function descargarImagen() {
+            const nombre = input.value.trim();
+            if (!nombre) return;
+
+            const enlace = document.createElement('a');
+            enlace.download = `apoyo-${nombre.replace(/\s+/g, '-').toLowerCase()}.png`;
+            enlace.href = canvas.toDataURL('image/png');
+            enlace.click();
+        }
+    </script>
+</body>
+</html>
