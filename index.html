@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Generador de Campaña</title>
-    <!-- Fuente Lilita One -->
     <link href="https://fonts.googleapis.com/css2?family=Lilita+One&display=swap" rel="stylesheet">
     <style>
         * {
@@ -21,7 +20,7 @@
         }
         /* --- HEADER --- */
         header {
-            background-color: #0F2D6B; /* Azul principal */
+            background-color: #0F2D6B; /* NUEVO COLOR */
             color: white;
             display: flex;
             justify-content: space-between;
@@ -30,9 +29,10 @@
             font-family: 'Lilita One', cursive;
             font-size: 16px;
             letter-spacing: 1px;
+            height: 60px; 
         }
         .btn-header {
-            background-color: #e8453c; /* Naranja/Rojo */
+            background-color: #e8453c;
             color: white;
             border: none;
             padding: 8px 15px;
@@ -54,7 +54,6 @@
             margin: 0 auto;
         }
         
-        /* Por defecto, el generador está oculto */
         #pantalla-generador {
             display: none; 
             width: 100%;
@@ -71,7 +70,7 @@
 
         /* --- PANTALLA DE INICIO --- */
         h1 {
-            color: #0F2D6B;
+            color: #0F2D6B; /* NUEVO COLOR */
             font-family: 'Lilita One', cursive;
             font-size: 32px;
             margin-bottom: 10px;
@@ -94,13 +93,12 @@
             margin-bottom: 25px;
         }
         h2 {
-            color: #0F2D6B;
+            color: #0F2D6B; /* NUEVO COLOR */
             font-family: 'Lilita One', cursive;
             font-size: 20px;
             margin: 30px 0 20px 0;
         }
         
-        /* Pasos (¿Cómo funciona?) */
         .pasos-container {
             width: 100%;
             display: flex;
@@ -109,18 +107,18 @@
             margin-bottom: 30px;
         }
         .paso-box {
-            background-color: #f0f4fa; /* Azul muy clarito */
+            background-color: #f0f4fa;
             padding: 15px 20px;
             border-radius: 10px;
             display: flex;
             align-items: center;
             font-family: 'Lilita One', cursive;
-            color: #0F2D6B;
+            color: #0F2D6B; /* NUEVO COLOR */
             font-size: 15px;
             text-align: left;
         }
         .paso-numero {
-            background-color: #0F2D6B;
+            background-color: #0F2D6B; /* NUEVO COLOR */
             color: white;
             min-width: 28px;
             height: 28px;
@@ -132,9 +130,8 @@
             font-size: 16px;
         }
 
-        /* Botones de acción */
         .btn-azul {
-            background-color: #0F2D6B;
+            background-color: #0F2D6B; /* NUEVO COLOR */
             color: white;
             border: none;
             padding: 15px 30px;
@@ -143,7 +140,7 @@
             font-size: 18px;
             cursor: pointer;
             width: 100%;
-            max-width: 350px;
+            max-width: 400px;
             transition: 0.3s;
         }
         .btn-naranja {
@@ -159,30 +156,86 @@
             max-width: 350px;
             transition: 0.3s;
         }
-        .btn-azul:hover { background-color: #0f2a6b; }
+        .btn-azul:hover { background-color: #0a1f49; /* Tono más oscuro ajustado */ }
         .btn-naranja:hover { background-color: #c9362e; }
 
-        /* --- PANTALLA GENERADOR (Estilos anteriores) --- */
+        /* --- PANTALLA GENERADOR --- */
+        
+        .encabezado-generador {
+            display: flex;
+            align-items: center;
+            width: 100%;
+            max-width: 400px;
+            margin-bottom: 20px;
+        }
+        .btn-volver {
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: #666;
+            margin-right: 15px;
+            display: flex;
+            align-items: center;
+            transition: color 0.3s;
+        }
+        .btn-volver:hover {
+            color: #0F2D6B; /* NUEVO COLOR */
+        }
+        .encabezado-generador h2 {
+            margin: 0;
+            font-size: 24px;
+        }
+
+        .etiqueta-container {
+            width: 100%;
+            max-width: 400px;
+            text-align: left;
+            margin-bottom: 8px;
+        }
         .etiqueta {
             font-weight: bold;
             font-size: 14px;
-            margin-bottom: 10px;
             color: #333;
+            font-family: 'Lilita One', cursive;
+        }
+        
+        .input-group {
+            display: flex;
+            gap: 10px;
+            width: 100%;
+            max-width: 400px;
+            margin-bottom: 20px;
         }
         input {
-            width: 100%;
+            flex: 1; 
             padding: 15px;
-            border: 1px solid #b0c4de;
+            border: 2px solid #0F2D6B; /* NUEVO COLOR */
             border-radius: 8px;
             font-size: 20px;
             text-align: center;
             font-family: 'Lilita One', cursive;
-            color: #0F2D6B;
-            margin-bottom: 20px;
+            color: #0F2D6B; /* NUEVO COLOR */
             outline: none;
             text-transform: uppercase;
         }
         input::placeholder { color: #a0aabf; }
+        
+        .btn-reset {
+            display: none; 
+            background-color: white;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            width: 56px; 
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            color: #666;
+            transition: background 0.2s;
+        }
+        .btn-reset:hover {
+            background-color: #f0f4fa;
+        }
+
         .canvas-container {
             background: white;
             padding: 15px;
@@ -190,6 +243,7 @@
             box-shadow: 0 10px 20px rgba(0,0,0,0.05);
             margin-bottom: 20px;
             width: 100%;
+            max-width: 400px;
             display: flex;
             justify-content: center;
         }
@@ -205,7 +259,7 @@
 
         /* --- FOOTER --- */
         footer {
-            background-color: #0F2D6B;
+            background-color: #0F2D6B; /* NUEVO COLOR */
             color: white;
             text-align: center;
             padding: 15px 20px;
@@ -224,130 +278,10 @@
 
     <header>
         <span>Estrategia Caribe</span>
-        <button class="btn-header" onclick="irAlGenerador()">Crear imagen</button>
+        <button id="btnHeaderCrear" class="btn-header" onclick="irAlGenerador()">Crear imagen</button>
     </header>
 
     <main>
-        <!-- ==========================================
-             1. PANTALLA DE INICIO (LANDING PAGE)
-             ========================================== -->
         <div id="pantalla-inicio">
             <h1>Firme por el Magdalena</h1>
-            <p class="subtitulo">Personaliza tu imagen y demuestra que tú también te la juegas <span class="resaltado-rojo">por la región.</span></p>
-            
-            <!-- Aquí usamos tu diseño limpio como imagen de muestra -->
-            <img src="plantilla.png" alt="Muestra de la imagen" class="imagen-muestra">
-            
-            <button class="btn-azul" onclick="irAlGenerador()">¡Crear mi imagen!</button>
-
-            <h2>¿Cómo funciona?</h2>
-            
-            <div class="pasos-container">
-                <div class="paso-box">
-                    <div class="paso-numero">1</div>
-                    Escribe tu nombre en el campo de texto
-                </div>
-                <div class="paso-box">
-                    <div class="paso-numero">2</div>
-                    Ve la vista previa de tu imagen personalizada
-                </div>
-                <div class="paso-box">
-                    <div class="paso-numero">3</div>
-                    Descarga o comparte directamente a WhatsApp e Instagram
-                </div>
-            </div>
-
-            <button class="btn-naranja" onclick="irAlGenerador()">Comenzar ahora &rarr;</button>
-        </div>
-
-        <!-- ==========================================
-             2. PANTALLA DEL GENERADOR (Oculta al inicio)
-             ========================================== -->
-        <div id="pantalla-generador">
-            <div class="etiqueta">Escribe tu nombre:</div>
-            <input type="text" id="nombreInput" placeholder="TU NOMBRE AQUÍ..." maxlength="22" oninput="actualizarCanvas()">
-            
-            <div class="canvas-container">
-                <canvas id="lienzo" width="800" height="800"></canvas>
-            </div>
-
-            <button class="btn-azul" id="btnDescargar" disabled onclick="descargarImagen()">
-                Descargar / Compartir
-            </button>
-        </div>
-    </main>
-
-    <footer>
-        <strong>Firme por el Magdalena y la Región</strong>
-        <p>By ❤️ Cepeda + Caicedo Unidos por Colombia</p>
-        <p>© 2026 - Jeffer Gutiérrez</p>
-    </footer>
-
-    <script>
-        // --- LOGICA DE NAVEGACION ---
-        function irAlGenerador() {
-            // Ocultamos el inicio y mostramos el generador
-            document.getElementById('pantalla-inicio').style.display = 'none';
-            document.getElementById('pantalla-generador').style.display = 'flex';
-            // Subimos la pantalla al tope
-            window.scrollTo(0, 0);
-        }
-
-        // --- LOGICA DEL CANVAS (Mismo de antes) ---
-        const canvas = document.getElementById('lienzo');
-        const ctx = canvas.getContext('2d');
-        const input = document.getElementById('nombreInput');
-        const boton = document.getElementById('btnDescargar');
-        
-        const imagenFondo = new Image();
-        imagenFondo.src = 'plantilla.png'; 
-
-        document.fonts.ready.then(function() {
-            imagenFondo.onload = function() {
-                dibujarEscena("");
-            };
-            if(imagenFondo.complete) {
-                dibujarEscena("");
-            }
-        });
-
-        function dibujarEscena(texto) {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            ctx.drawImage(imagenFondo, 0, 0, canvas.width, canvas.height);
-            
-            ctx.font = '80px "Lilita One"'; 
-            ctx.textAlign = 'center';
-            ctx.textBaseline = 'middle';
-            
-            if (texto.trim() === "") {
-                ctx.fillStyle = '#b0c4de'; 
-                ctx.fillText("TU NOMBRE", canvas.width / 2, 150); 
-            } else {
-                ctx.fillStyle = '#0F2D6B'; 
-                ctx.fillText(texto.toUpperCase(), canvas.width / 2, 150); 
-            }
-        }
-
-        function actualizarCanvas() {
-            const nombre = input.value;
-            dibujarEscena(nombre);
-
-            if (nombre.trim().length > 0) {
-                boton.disabled = false;
-            } else {
-                boton.disabled = true;
-            }
-        }
-
-        function descargarImagen() {
-            const nombre = input.value.trim();
-            if (!nombre) return;
-
-            const enlace = document.createElement('a');
-            enlace.download = `apoyo-${nombre.replace(/\s+/g, '-').toLowerCase()}.png`;
-            enlace.href = canvas.toDataURL('image/png');
-            enlace.click();
-        }
-    </script>
-</body>
-</html>
+            <p class="subtitulo">Personaliza tu imagen y demuestra que tú también te la juegas <span class="resaltado-rojo">por COLOMBIA.</span></
