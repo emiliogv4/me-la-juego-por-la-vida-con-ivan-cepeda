@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Generador de Campaña</title>
-    <!-- Importamos una fuente similar a la de la captura (puedes cambiarla por la oficial de tu campaña) -->
+    <!-- Importamos una fuente similar a la de la captura -->
     <link href="https://fonts.googleapis.com/css2?family=Titan+One&display=swap" rel="stylesheet">
     <style>
         * {
@@ -19,9 +19,8 @@
             flex-direction: column;
             min-height: 100vh;
         }
-        /* Franja superior e inferior azul */
         header, footer {
-            background-color: #21409a; /* Azul campaña */
+            background-color: #21409a; 
             color: white;
             text-align: center;
             padding: 10px 20px;
@@ -59,7 +58,6 @@
         input::placeholder {
             color: #a0aabf;
         }
-        /* Contenedor del Canvas para darle el estilo de tarjeta blanca */
         .canvas-container {
             background: white;
             padding: 15px;
@@ -72,7 +70,6 @@
             width: 100%;
             max-width: 400px;
         }
-        /* El canvas ahora es visible y responsivo */
         canvas {
             max-width: 100%;
             height: auto;
@@ -94,7 +91,6 @@
             gap: 10px;
             transition: background-color 0.3s;
         }
-        /* Estado del botón: Desactivado vs Activado */
         button:disabled {
             background-color: #9ba8ce;
             cursor: not-allowed;
@@ -127,7 +123,6 @@
 
     <main>
         <div class="etiqueta">Escribe tu nombre:</div>
-        <!-- Evento oninput para actualizar en tiempo real -->
         <input type="text" id="nombreInput" placeholder="TU NOMBRE AQUÍ..." maxlength="22" oninput="actualizarCanvas()">
         
         <div class="canvas-container">
@@ -143,8 +138,8 @@
 
     <footer>
         <strong>Firme por el Magdalena y la Región</strong>
-        <p>By ❤️ Cepeda+Caicedo Unidos por Colombia</p>
-        <p>© 2026 - Jeffer Gutiérrez</p>
+        <p>By ❤️ Equipo de Estrategia</p>
+        <p>© 2026 - Desarrollo Web</p>
     </footer>
 
     <script>
@@ -154,55 +149,46 @@
         const boton = document.getElementById('btnDescargar');
         const ayuda = document.getElementById('textoAyuda');
         
-        // Cargar la imagen de plantilla (Asegúrate de que 'plantilla.png' esté en tu carpeta)
         const imagenFondo = new Image();
         imagenFondo.src = 'plantilla.png'; 
 
-        // Cuando la imagen cargue, dibujamos el estado inicial vacío
         imagenFondo.onload = function() {
             dibujarEscena("");
         };
 
-        // Función central: Dibuja la imagen y el texto encima
+        // AQUÍ FUE DONDE SE REEMPLAZÓ EL CÓDIGO NUEVO
         function dibujarEscena(texto) {
-            // 1. Limpiar el canvas
             ctx.clearRect(0, 0, canvas.width, canvas.height);
-            
-            // 2. Dibujar el fondo
             ctx.drawImage(imagenFondo, 0, 0, canvas.width, canvas.height);
             
-            // 3. Configurar la tipografía de campaña
-            ctx.font = '50px "Titan One"'; // Tamaño y fuente
-            ctx.fillStyle = '#a0aabf';     // Color gris claro del texto original
+            ctx.font = '50px "Titan One"'; 
             ctx.textAlign = 'center';
             ctx.textBaseline = 'middle';
             
-            // 4. Dibujar el texto si existe
-            if (texto.trim() !== "") {
-                // Ajusta estas coordenadas (X, Y) según el diseño de TU plantilla.png
-                // Aquí está centrado horizontalmente (canvas.width/2) y un poco más arriba de la mitad (300)
+            if (texto.trim() === "") {
+                ctx.fillStyle = '#b0c4de'; 
+                ctx.fillText("TU NOMBRE", canvas.width / 2, 300); 
+            } else {
+                ctx.fillStyle = '#a0aabf'; 
                 ctx.fillText(texto.toUpperCase(), canvas.width / 2, 300); 
             }
         }
+        // FIN DEL CÓDIGO NUEVO
 
-        // Se ejecuta cada vez que el usuario presiona una tecla
         function actualizarCanvas() {
             const nombre = input.value;
             
-            // Actualizar la previsualización
             dibujarEscena(nombre);
 
-            // Lógica del botón: activar/desactivar
             if (nombre.trim().length > 0) {
                 boton.disabled = false;
-                ayuda.style.visibility = 'hidden'; // Ocultar texto de ayuda
+                ayuda.style.visibility = 'hidden'; 
             } else {
                 boton.disabled = true;
-                ayuda.style.visibility = 'visible'; // Mostrar texto de ayuda
+                ayuda.style.visibility = 'visible'; 
             }
         }
 
-        // Descargar la imagen final
         function descargarImagen() {
             const nombre = input.value.trim();
             if (!nombre) return;
